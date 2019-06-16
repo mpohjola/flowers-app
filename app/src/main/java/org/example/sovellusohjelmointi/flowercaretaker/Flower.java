@@ -5,11 +5,24 @@ package org.example.sovellusohjelmointi.flowercaretaker;
  */
 
 public class Flower {
+
     private int id;
     private String name;
     private String latinName;
     private String soilType;
     private int waterAmount;
+    private int waterFrequency;
+
+    public Flower() {
+    }
+
+    public int getWaterFrequency() {
+        return waterFrequency;
+    }
+
+    public void setWaterFrequency(int waterFrequency) {
+        this.waterFrequency = waterFrequency;
+    }
 
     public int getId() {
         return id;

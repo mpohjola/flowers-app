@@ -8,12 +8,12 @@ import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface RESTClientAPI {
-    @GET("getFlowers")
+    @GET("flowers")
     Call <ArrayList<Flower>> getFlowers();
 
-    @GET("getUserFlowers")
+    @GET("user-flowers")
     Call <ArrayList<UserFlower>> getUserFlowers();
 
-    @GET("getWateringEvents")
+    @GET("flower-watering")
     Call <ArrayList<WateringEvent>> getWateringEvents();
 }

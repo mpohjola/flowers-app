@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -17,11 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private static final String PREFERENCES_FILE = "FlowerCaretakerPreferences";
     private final String TAG = "MAIN_ACTIVITY";
+    private static RESTController restController = new RESTController();
 
-    private static User user;
+    private static User user = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
         String userID = settings.getString("userID", "");
         String username = settings.getString("username", "");
 
+        new GetFlowersTask().execute();
+
         if (userID.equals("")) {
             Log.i(TAG,"No user ID present.");
             userID = user.getNewID();
-            //request new username
+            //request new username from user
 
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("UserID",userID);
@@ -75,5 +81,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This class extends AsyncTask interface and asynchroniously fetches building data
+     * from the server and then adds the building names to the building listView. Furthermore
+     * an event listener is attached to the listview to trigger an event when user chooses a building.
+     */
+    private class GetFlowersTask extends AsyncTask<Integer,Void, ArrayList<Flower>> {
+
+        @Override
+        protected ArrayList<Flower> doInBackground(Integer... params) {
+
+            ArrayList<Flower> flowers = restController.getFlowers();
+            //ArrayList<String> tempFlowers = new ArrayList<String>();
+            //tempBuildings.add("");
+            return flowers;
+        }
+
+
+        @Override
+        protected void onPostExecute(ArrayList<Flower> tempBuildings) {
+            //super.onPostExecute(o);
+        }
+
     }
 }
