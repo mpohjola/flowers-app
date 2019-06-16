@@ -12,7 +12,7 @@ public class UserFlower {
     private int flowerid;
     private String added;
     private String age;
-    private ArrayList<Date> wateringEvents;
+    private ArrayList<WateringEvent> wateringEvents;
     private Flower flower;
 
     public Flower getFlower() {
@@ -63,15 +63,15 @@ public class UserFlower {
         this.age = age;
     }
 
-    public ArrayList<Date> getWateringEvents() {
+    public ArrayList<WateringEvent> getWateringEvents() {
         return wateringEvents;
     }
 
-    public void setWateringEvents(ArrayList<Date> wateringEvents) {
+    public void setWateringEvents(ArrayList<WateringEvent> wateringEvents) {
         this.wateringEvents = wateringEvents;
     }
 
-    public Date getLatestWatered() {
+    public WateringEvent getLatestWatered() {
         return this.wateringEvents.get(0);
     }
 
