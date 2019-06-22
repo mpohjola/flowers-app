@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -15,7 +16,7 @@ public class RESTController {
 
     private String TAG = "RESTController";
     private OkHttpClient httpClient;
-    private static final String serverAddress = "http://54.194.71.79/flower-caretaker/";
+    private static final String serverAddress = "http://34.244.77.139/flower-caretaker/";
 
     private Retrofit retrofit;
 
@@ -49,6 +50,19 @@ public class RESTController {
             e.printStackTrace();
         }
         return flowersList;
+    }
+
+    public User createUser(Map<String, String> userInfo) {
+        User newUser = new User();
+
+        Call<User> createUserCall = service.createUser(userInfo);
+        try {
+            newUser = createUserCall.execute().body();
+            Log.i(TAG, "Got the new user from server!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newUser;
     }
 
 }
