@@ -10,59 +10,61 @@
 
     <TextView
         android:id="@+id/labelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="224dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="37dp"
         android:text="Welcome to Flower Caretaker!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/registerNotification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/usernameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="89dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="19dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Username"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/registerSubmit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="81dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelText" />
+        app:layout_constraintTop_toBottomOf="@+id/registerNotification"
+        tools:visibility="invisible" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/registerSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="349dp"
-        android:text="Button"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="244dp"
+        android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameField"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/registerNotification"
+        android:layout_width="287dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginBottom="28dp"
+        android:text="Looks like it is your first time using the app. Please choose an username below and we can get started"
+        app:layout_constraintBottom_toTopOf="@+id/usernameField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelText"
+        tools:visibility="invisible" />
 
 </android.support.constraint.ConstraintLayout>
