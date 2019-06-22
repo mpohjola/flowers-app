@@ -10,7 +10,7 @@ public class Flower {
     private String name;
     private String latinName;
     private String soilType;
-    private int waterAmount;
+    private String waterAmount;
     private int waterFrequency;
 
     public Flower() {
@@ -56,11 +56,11 @@ public class Flower {
         this.soilType = soilType;
     }
 
-    public int getWaterAmount() {
+    public String getWaterAmount() {
         return waterAmount;
     }
 
-    public void setWaterAmount(int waterAmount) {
+    public void setWaterAmount(String waterAmount) {
         this.waterAmount = waterAmount;
     }
 

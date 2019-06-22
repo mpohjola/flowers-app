@@ -4,40 +4,58 @@ import java.util.Map;
 import java.util.UUID;
 import android.provider.Settings.Secure;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Data class for user.
  */
 public class User {
-    private static String userID;
-    private static String username;
-    private static Map<String, UserFlower> flowers;
 
-    public static Map<String, UserFlower> getFlowers() {
+
+    @JsonProperty("identifier")
+    private String identifier;
+    private String username;
+    private Map<String, UserFlower> flowers;
+    private String lastseen;
+
+    public User() {
+    }
+
+    public Map<String, UserFlower> getFlowers() {
         return flowers;
     }
 
-    public static void setFlowers(Map<String, UserFlower> flowers) {
-        User.flowers = flowers;
+    public void setFlowers(Map<String, UserFlower> flowers) {
+        this.flowers = flowers;
     }
 
-    public static String getUserID() {
-        return userID;
+
+    public String getLastseen() {
+        return lastseen;
     }
 
-    public static void setUserID(String userID) {
-        User.userID = userID;
+    public void setLastseen(String lastseen) {
+        this.lastseen = lastseen;
     }
 
-    public static String getUsername() {
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getUsername() {
         return username;
     }
 
-    public static void setUsername(String username) {
-        User.username = username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public static void addToFlowers(UserFlower newFlower) {
-        User.flowers.put(Integer.toString(newFlower.getId()), newFlower);
+    public void addToFlowers(UserFlower newFlower) {
+        this.flowers.put(Integer.toString(newFlower.getId()), newFlower);
     }
 
     public String getNewID() {
