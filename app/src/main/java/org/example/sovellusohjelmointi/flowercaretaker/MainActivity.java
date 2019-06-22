@@ -2,6 +2,7 @@ package org.example.sovellusohjelmointi.flowercaretaker;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -17,8 +18,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFERENCES_FILE = "FlowerCaretakerPreferences";
@@ -38,14 +44,55 @@ public class MainActivity extends AppCompatActivity {
 
         new GetFlowersTask().execute();
 
+        Log.i(TAG, "userID: " + userID);
+        Log.i(TAG, "username: " + username);
         if (userID.equals("")) {
             Log.i(TAG,"No user ID present.");
             userID = user.getNewID();
             //request new username from user
+            user.setIdentifier(userID);
 
             SharedPreferences.Editor editor = settings.edit();
-            editor.putString("UserID",userID);
-            editor.apply();
+            editor.putString("userID",userID);
+            editor.commit();
+            TextView registerNotification = (TextView) findViewById(R.id.registerNotification);
+            registerNotification.setVisibility(View.VISIBLE);
+
+            EditText usernameField = (EditText) findViewById(R.id.usernameField);
+            usernameField.setVisibility(View.VISIBLE);
+
+
+
+            Button registerButton = (Button) findViewById(R.id.registerSubmit);
+            registerButton.setVisibility(View.VISIBLE);
+
+            registerButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    EditText usernameField = (EditText) findViewById(R.id.usernameField);
+                    String newUsername = usernameField.getText().toString();
+                    user.setUsername(newUsername);
+
+                    SharedPreferences settings = getSharedPreferences(PREFERENCES_FILE, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("username",newUsername);
+                    editor.commit();
+                    Log.i(TAG,"Saved userID: " + settings.getString("userID", ""));
+
+                    Map<String, String> userInfo = new HashMap<>();
+                    userInfo.put("username", newUsername);
+                    userInfo.put("identifier", user.getIdentifier());
+                    new createUserTask().execute(userInfo);
+                }
+            });
+
+
+        } else {
+            Log.i(TAG, "User already created!");
+            user.setIdentifier(userID);
+            user.setUsername(username);
+            //load next activity
+            Intent intent = new Intent(this, FlowersActivity.class);
+            startActivity(intent);
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -81,6 +128,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This class extends AsyncTask interface and asynchroniously fetches building data
+     * from the server and then adds the building names to the building listView. Furthermore
+     * an event listener is attached to the listview to trigger an event when user chooses a building.
+     */
+    private class createUserTask extends AsyncTask<Map<String, String>,Void, User> {
+
+        @Override
+        protected User doInBackground(Map<String, String>... params) {
+
+            User newUser = restController.createUser(params[0]);
+            return newUser;
+        }
+
+
+        @Override
+        protected void onPostExecute(User newUser) {
+            //super.onPostExecute(o);
+        }
+
     }
 
     /**
