@@ -1,5 +1,6 @@
 package org.example.sovellusohjelmointi.flowercaretaker;
 
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +20,12 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class FlowersActivity extends AppCompatActivity {
+import org.example.sovellusohjelmointi.flowercaretaker.dummy.DummyContent;
+
+import java.util.ArrayList;
+
+public class FlowersActivity extends AppCompatActivity implements FlowersListFragment.OnFlowerSelected, UserFlowerFragment.OnUserFlowerSelected
+        {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,6 +41,8 @@ public class FlowersActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private String TAG = "FlowersActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +91,18 @@ public class FlowersActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFlowerSelected(AppData.FlowerItem flowerItem) {
+        Log.i(TAG,"Clicked dummy list item!");
+        //Open add flower dialog/view. Overview of the chosen flower with buttons cancel and create
+    }
+
+    @Override
+    public void onUserFlowerSelected(DummyContent.DummyItem dummy) {
+        Log.i(TAG,"Clicked dummy list item on user flowers list!");
+        //Open water flower dialog/view. Overview of the chosen flower with buttons cancel and water
     }
 
     /**
@@ -133,6 +154,15 @@ public class FlowersActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            Log.i(TAG,"Position: " + position);
+            if (position == 0) {
+                AppData appData = new AppData();
+                Log.i(TAG,"Appdata flowers: " + appData.printFlowers());
+                return UserFlowerFragment.newInstance(1);
+            }
+            if (position == 1) {
+                return FlowersListFragment.newInstance(1);
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 

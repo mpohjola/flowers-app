@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREFERENCES_FILE = "FlowerCaretakerPreferences";
     private final String TAG = "MAIN_ACTIVITY";
     private static RESTController restController = new RESTController();
+    private static AppData appData = new AppData();
 
     private static User user = new User();
 
@@ -41,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFERENCES_FILE, 0);
         String userID = settings.getString("userID", "");
         String username = settings.getString("username", "");
-
-        new GetFlowersTask().execute();
 
         Log.i(TAG, "userID: " + userID);
         Log.i(TAG, "username: " + username);
@@ -147,30 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(User newUser) {
-            //super.onPostExecute(o);
-        }
-
-    }
-
-    /**
-     * This class extends AsyncTask interface and asynchroniously fetches building data
-     * from the server and then adds the building names to the building listView. Furthermore
-     * an event listener is attached to the listview to trigger an event when user chooses a building.
-     */
-    private class GetFlowersTask extends AsyncTask<Integer,Void, ArrayList<Flower>> {
-
-        @Override
-        protected ArrayList<Flower> doInBackground(Integer... params) {
-
-            ArrayList<Flower> flowers = restController.getFlowers();
-            //ArrayList<String> tempFlowers = new ArrayList<String>();
-            //tempBuildings.add("");
-            return flowers;
-        }
-
-
-        @Override
-        protected void onPostExecute(ArrayList<Flower> tempBuildings) {
             //super.onPostExecute(o);
         }
 
